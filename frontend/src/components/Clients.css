@@ -1,0 +1,103 @@
+/* ============================================================
+   CLIENTS CONVEYOR
+   Continuously moves client cards without stopping on hover.
+   ============================================================ */
+
+   .clients-marquee {
+    position: relative;
+    width: calc(100% - 4rem);
+    max-width: 1200px;
+    margin: 3rem auto 0;
+    overflow: hidden;
+  
+    /* Soft fade on both sides */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 4%,
+      black 96%,
+      transparent
+    );
+  
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 4%,
+      black 96%,
+      transparent
+    );
+  }
+  
+  /* Holds both identical groups of client cards */
+  .clients-track {
+    display: flex;
+    width: max-content;
+    gap: 1.5rem;
+  
+    animation: moveClientsRight 32s linear infinite;
+    will-change: transform;
+  }
+  
+  /* One complete group of client cards */
+  .clients-group {
+    display: flex;
+    flex-shrink: 0;
+    gap: 1.5rem;
+  }
+  
+  /*
+    Do not add animation-play-state: paused here.
+    The conveyor will continue moving even when hovered.
+  */
+  
+  /* Infinite right-moving animation */
+  @keyframes moveClientsRight {
+    from {
+      transform: translateX(calc(-50% - 0.75rem));
+    }
+  
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .clients-marquee {
+      width: calc(100% - 2rem);
+    }
+  
+    .clients-track {
+      animation-duration: 28s;
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    .clients-marquee {
+      width: 100%;
+      max-width: none;
+    }
+  
+    .clients-track,
+    .clients-group {
+      gap: 1rem;
+    }
+  
+    .clients-track {
+      animation-duration: 24s;
+    }
+  }
+  
+  /* Stop movement for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .clients-track {
+      animation: none;
+    }
+  
+    .clients-marquee {
+      overflow-x: auto;
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+  }

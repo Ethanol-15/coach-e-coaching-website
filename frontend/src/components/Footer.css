@@ -1,0 +1,11 @@
+footer {
+    padding: 2rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    text-align: center;
+  }
+  
+  footer span {
+    color: var(--accent);
+  }
