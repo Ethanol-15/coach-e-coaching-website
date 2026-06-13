@@ -4,10 +4,17 @@ import { FaBolt, FaPaperPlane } from "react-icons/fa6";
 import useScrollReveal from "../hooks/useScrollReveal";
 import "./Chatbot.css";
 
-const API_BASE =
-  window.location.hostname === "localhost"
-    ? "http://localhost:8000"
-    : "https://your-backend-url.com";
+/*
+  Local development:
+  React runs on localhost:5173
+  FastAPI runs on localhost:8000
+
+  Production:
+  FastAPI is routed through /__backend on Vercel.
+*/
+const API_BASE = import.meta.env.DEV
+  ? "http://localhost:8000"
+  : "/__backend";
 
 function getTime() {
   return new Date().toLocaleTimeString([], {
@@ -34,7 +41,7 @@ function Chatbot() {
 
   const chatMessagesRef = useRef(null);
 
-  // Automatically scroll to the newest message
+  // Automatically scroll to the newest message.
   useEffect(() => {
     const container = chatMessagesRef.current;
 
@@ -67,11 +74,20 @@ function Chatbot() {
     setIsTyping(true);
 
     try {
+      /*
+        Remove display-only information such as message time
+        before sending the conversation to FastAPI.
+      */
       const conversationHistory = updatedMessages.map((message) => ({
         role: message.role,
         content: message.content,
       }));
 
+      /*
+        Send the conversation to:
+        Local: http://localhost:8000/chat
+        Production: /__backend/chat
+      */
       const response = await fetch(`${API_BASE}/chat`, {
         method: "POST",
         headers: {
