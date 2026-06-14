@@ -1,0 +1,946 @@
+/* ============================================================
+   BODY FAT ANALYZER
+   Main section spacing and page-level layout.
+   ============================================================ */
+
+   #bodyfat {
+    overflow: clip;
+    padding: 5rem 2rem 0;
+  }
+  
+  
+  /* ============================================================
+     SECTION HEADER
+     Reveals the label, title, subtitle, and disclaimer on scroll.
+     ============================================================ */
+  
+  #bodyfat .section-label {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  #bodyfat .section-title {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  
+  #bodyfat.is-visible .section-label {
+    animation: bfRevealLabel 0.6s ease forwards;
+  }
+  
+  #bodyfat.is-visible .section-title {
+    animation: bfRevealTitle 0.75s ease 0.15s forwards;
+  }
+  
+  .bf-subtitle {
+    max-width: 560px;
+    margin-top: 0.5rem;
+  
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.7;
+  
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  
+  #bodyfat.is-visible .bf-subtitle {
+    animation: bfFadeUp 0.6s ease 0.3s forwards;
+  }
+  
+  
+  /* ============================================================
+     DISCLAIMER
+     Reminds users that the result is only an estimate.
+     ============================================================ */
+  
+  .bf-disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  
+    margin-top: 1.5rem;
+    padding: 12px 16px;
+  
+    color: var(--text-muted);
+    background: rgba(232, 255, 71, 0.05);
+    border: 1px solid rgba(232, 255, 71, 0.15);
+    border-radius: 8px;
+  
+    font-size: 13px;
+    line-height: 1.6;
+  
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  
+  #bodyfat.is-visible .bf-disclaimer {
+    animation: bfFadeUp 0.6s ease 0.4s forwards;
+  }
+  
+  .bf-disclaimer strong {
+    color: var(--accent);
+  }
+  
+  
+  /* ============================================================
+     MAIN LAYOUT
+     Left column contains inputs; right column contains results.
+     ============================================================ */
+  
+  .bf-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
+    align-items: start;
+    gap: clamp(1.5rem, 3vw, 3rem);
+  
+    margin-top: 2.5rem;
+  
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  
+  #bodyfat.is-visible .bf-layout {
+    animation: bfFadeUp 0.7s ease 0.5s forwards;
+  }
+  
+  
+  /* ============================================================
+     INPUT CARDS
+     Each step is displayed inside its own card.
+     ============================================================ */
+  
+  .bf-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .bf-card {
+    padding: 1.25rem 1.5rem;
+  
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  
+    transition: border-color 0.25s ease;
+  }
+  
+  .bf-card:hover {
+    border-color: rgba(232, 255, 71, 0.12);
+  }
+  
+  .bf-step-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  
+    margin-bottom: 1rem;
+  
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  
+  .bf-optional-tag {
+    padding: 2px 7px;
+  
+    color: var(--text-muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-transform: none;
+  }
+  
+  .bf-card-hint {
+    margin-bottom: 1rem;
+  
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  
+  
+  /* ============================================================
+     OPTION BUTTONS
+     Used for gender and measurement unit selection.
+     ============================================================ */
+  
+  .bf-radio-group {
+    margin-bottom: 1rem;
+  }
+  
+  .bf-radio-group:last-child {
+    margin-bottom: 0;
+  }
+  
+  .bf-field-label {
+    display: block;
+    margin-bottom: 6px;
+  
+    color: var(--text-muted);
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+  
+  .bf-radios {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .bf-radio-btn {
+    flex: 1;
+    padding: 8px 12px;
+  
+    color: var(--text-muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  
+    font-size: 13px;
+    cursor: pointer;
+  
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease,
+      background 0.2s ease;
+  }
+  
+  .bf-radio-btn:hover {
+    color: var(--text);
+    border-color: rgba(232, 255, 71, 0.25);
+  }
+  
+  .bf-radio-btn.active {
+    color: var(--accent);
+    background: rgba(232, 255, 71, 0.08);
+    border-color: rgba(232, 255, 71, 0.45);
+  }
+  
+  
+  /* ============================================================
+     PHOTO UPLOAD
+     Shows an upload prompt or the selected photo preview.
+     ============================================================ */
+  
+  .bf-dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  
+    min-height: 140px;
+  
+    background: var(--surface2);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+  
+    cursor: pointer;
+  
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease;
+  }
+  
+  .bf-dropzone:hover {
+    background: rgba(232, 255, 71, 0.03);
+    border-color: rgba(232, 255, 71, 0.35);
+  }
+  
+  .bf-dropzone.has-image {
+    min-height: unset;
+    padding: 8px;
+  
+    border-style: solid;
+    border-color: rgba(232, 255, 71, 0.2);
+  }
+  
+  .bf-upload-icon {
+    font-size: 28px;
+    opacity: 0.6;
+  }
+  
+  .bf-upload-text {
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  
+  .bf-upload-hint {
+    color: rgba(136, 136, 136, 0.6);
+    font-size: 12px;
+  }
+  
+  .bf-preview {
+    display: block;
+    width: 100%;
+    max-height: 220px;
+  
+    object-fit: cover;
+    border-radius: 6px;
+  }
+  
+  .bf-clear-photo {
+    display: block;
+    margin-top: 8px;
+  
+    color: var(--text-muted);
+    background: none;
+    border: none;
+  
+    font-size: 12px;
+    cursor: pointer;
+  
+    transition: color 0.2s ease;
+  }
+  
+  .bf-clear-photo:hover {
+    color: #f44336;
+  }
+  
+  
+  /* ============================================================
+     MEASUREMENTS
+     Optional collapsible Navy Formula measurement fields.
+     ============================================================ */
+  
+  .bf-collapse-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    width: 100%;
+    padding: 0;
+  
+    color: inherit;
+    background: none;
+    border: none;
+  
+    cursor: pointer;
+  }
+  
+  .bf-chevron {
+    color: var(--text-muted);
+    font-size: 20px;
+    line-height: 1;
+  
+    transform: rotate(0deg);
+    transition: transform 0.25s ease;
+  }
+  
+  .bf-chevron.open {
+    transform: rotate(90deg);
+  }
+  
+  .bf-measurements {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  
+    margin-top: 1rem;
+  }
+  
+  .bf-input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  .bf-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .bf-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+  
+  .bf-field-note {
+    color: rgba(136, 136, 136, 0.6);
+    font-size: 11px;
+  }
+  
+  .bf-input {
+    width: 100%;
+    padding: 9px 12px;
+  
+    color: var(--text);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    outline: none;
+  
+    font-size: 14px;
+  
+    transition: border-color 0.2s ease;
+  }
+  
+  .bf-input:focus {
+    border-color: rgba(232, 255, 71, 0.35);
+  }
+  
+  /* Removes browser number-input arrows */
+  .bf-input::-webkit-inner-spin-button,
+  .bf-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  
+  
+  /* ============================================================
+     ANALYZE BUTTON
+     Sends the image and optional measurements to FastAPI.
+     ============================================================ */
+  
+  .bf-analyze-btn {
+    width: 100%;
+    padding: 13px;
+  
+    color: #0a0a0a;
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+  
+    font-size: 15px;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition:
+      opacity 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+  
+  .bf-analyze-btn:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  
+    box-shadow:
+      0 0 12px rgba(232, 255, 71, 0.3),
+      0 0 24px rgba(232, 255, 71, 0.12);
+  }
+  
+  .bf-analyze-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  
+  .bf-loading-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  /* Small spinner displayed while waiting for the API */
+  .bf-spinner {
+    display: inline-block;
+  
+    width: 16px;
+    height: 16px;
+  
+    border: 2px solid rgba(10, 10, 10, 0.3);
+    border-top-color: #0a0a0a;
+    border-radius: 50%;
+  
+    animation: bfSpin 0.7s linear infinite;
+  }
+  
+  .bf-error {
+    margin-top: 10px;
+    padding: 10px 14px;
+  
+    color: #f44336;
+    background: rgba(244, 67, 54, 0.08);
+    border: 1px solid rgba(244, 67, 54, 0.25);
+    border-radius: 6px;
+  
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  
+  /* ============================================================
+     RESULTS COLUMN
+     Displays empty, loading, Navy, and AI result states.
+     ============================================================ */
+  
+  .bf-results-col {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    min-width: 0;
+  
+    /* Result now scrolls normally with the rest of the page. */
+    position: static;
+  }
+  
+  .bf-results-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  
+    height: 100%;
+    min-height: 240px;
+    padding: 2rem;
+  
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+  
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+  }
+  
+  .bf-placeholder-icon {
+    font-size: 36px;
+    opacity: 0.4;
+  }
+  
+  /* Larger spinner displayed during visual analysis */
+  .bf-pulse-ring {
+    width: 48px;
+    height: 48px;
+  
+    border: 3px solid rgba(232, 255, 71, 0.15);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+  
+    animation: bfSpin 1s linear infinite;
+  }
+  
+  .bf-results {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .bf-result-card {
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+  
+    background:
+      radial-gradient(
+        circle at 18% 42%,
+        rgba(232, 255, 71, 0.055),
+        transparent 34%
+      ),
+      var(--surface);
+  
+    border: 1px solid rgba(232, 255, 71, 0.13);
+    border-radius: 16px;
+  
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
+  }
+  
+  .bf-result-card-label {
+    margin-bottom: 1rem;
+  
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  
+  
+  /* ============================================================
+     NAVY FORMULA RESULT
+     Displays the measurement-based body-fat result and category.
+     ============================================================ */
+  
+  .bf-metrics-row {
+    display: flex;
+    gap: 2rem;
+  
+    margin-bottom: 0.75rem;
+  }
+  
+  .bf-metric-value {
+    color: var(--accent);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  
+  .bf-metric-label {
+    margin-top: 2px;
+  
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+  
+  /* Category colors returned by the backend */
+  .cat-blue {
+    color: #64b5f6;
+  }
+  
+  .cat-green {
+    color: #66bb6a;
+  }
+  
+  .cat-lime {
+    color: var(--accent);
+  }
+  
+  .cat-orange {
+    color: var(--accent2);
+  }
+  
+  .cat-red {
+    color: #ef5350;
+  }
+  
+  .bf-result-note {
+    margin-top: 0.25rem;
+    padding-top: 0.75rem;
+  
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+  
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  
+  
+  /* ============================================================
+     AI VISUAL RESULT
+     Highlights the percentage returned by the vision model.
+     ============================================================ */
+  
+  .bf-ai-summary {
+    display: grid;
+    grid-template-columns: 156px minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  
+  /* Circular result badge */
+  .bf-ai-percentage {
+    position: relative;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    width: 156px;
+    aspect-ratio: 1;
+    padding: 1rem;
+  
+    color: var(--accent);
+  
+    background:
+      radial-gradient(
+        circle at 50% 38%,
+        rgba(232, 255, 71, 0.16),
+        rgba(232, 255, 71, 0.055) 58%,
+        rgba(232, 255, 71, 0.025) 100%
+      );
+  
+    border: 1px solid rgba(232, 255, 71, 0.42);
+    border-radius: 50%;
+  
+    font-size: clamp(2.75rem, 4vw, 3.5rem);
+    font-weight: 750;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-align: center;
+  
+    box-shadow:
+      inset 0 0 24px rgba(232, 255, 71, 0.07),
+      0 0 0 8px rgba(232, 255, 71, 0.035),
+      0 12px 35px rgba(0, 0, 0, 0.32),
+      0 0 28px rgba(232, 255, 71, 0.1);
+  
+    text-shadow:
+      0 0 10px rgba(232, 255, 71, 0.45),
+      0 0 24px rgba(232, 255, 71, 0.18);
+  }
+  
+  .bf-ai-percentage::after {
+    content: "BODY FAT";
+    position: absolute;
+  
+    /* Increase this to move BODY FAT to the right. */
+    left: 50%;
+  
+    bottom: 27px;
+    transform: translateX(-50%);
+  
+    color: rgba(232, 255, 71, 0.68);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    white-space: nowrap;
+  }
+  
+  .bf-ai-percentage span {
+    align-self: flex-start;
+  
+    margin-top: 29px;
+  
+    /* Increase this to move the % farther right. */
+    margin-left: 3px;
+  
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  
+  .bf-ai-details {
+    min-width: 0;
+  }
+  
+  /* Brief explanation of the visual estimate */
+  .bf-ai-reason {
+    margin-bottom: 0.75rem;
+  
+    color: #ddd;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  
+  /* Accuracy warning returned by the AI */
+  .bf-ai-disclaimer {
+    padding-top: 0.75rem;
+  
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+  
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  
+  
+  /* ============================================================
+     RESULT ACTIONS
+     Warning message and reset button.
+     ============================================================ */
+  
+  .bf-save-warning {
+    padding: 10px 14px;
+  
+    color: var(--text-muted);
+    background: rgba(255, 107, 53, 0.07);
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    border-radius: 6px;
+  
+    font-size: 13px;
+  }
+  
+  .bf-reset-btn {
+    padding: 10px;
+  
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  
+    font-size: 13px;
+    cursor: pointer;
+  
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+  
+  .bf-reset-btn:hover {
+    color: var(--accent);
+    border-color: rgba(232, 255, 71, 0.25);
+    transform: translateY(-1px);
+  }
+  
+  
+  /* ============================================================
+     BOTTOM DIVIDER
+     Separates the analyzer section from the Contact section.
+     ============================================================ */
+  
+  .bf-bottom-divider {
+    width: min(960px, calc(100% - 4rem));
+    height: 1px;
+  
+    margin: 5rem auto 0;
+  
+    background: var(--border);
+  }
+  
+  
+  /* ============================================================
+     ANIMATIONS
+     ============================================================ */
+  
+  @keyframes bfRevealLabel {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+      letter-spacing: 6px;
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      letter-spacing: 3px;
+    }
+  }
+  
+  @keyframes bfRevealTitle {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes bfFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes bfSpin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  
+  /* Keeps the two-column desktop layout balanced on smaller laptops. */
+  @media (max-width: 1050px) {
+    .bf-layout {
+      grid-template-columns: minmax(0, 1fr) minmax(330px, 0.88fr);
+      gap: 1.5rem;
+    }
+  
+    .bf-ai-summary {
+      grid-template-columns: 132px minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+  
+    .bf-ai-percentage {
+      width: 132px;
+    }
+  
+    .bf-ai-percentage span {
+      margin-top: 23px;
+      font-size: 16px;
+    }
+  
+    .bf-ai-percentage::after {
+      bottom: 22px;
+    }
+  }
+  
+  
+  /* ============================================================
+     TABLET AND MOBILE
+     Stacks the input and result columns vertically.
+     ============================================================ */
+  
+  @media (max-width: 880px) {
+    #bodyfat {
+      padding: 4rem 1.25rem 0;
+    }
+  
+    .bf-layout {
+      grid-template-columns: 1fr;
+    }
+  
+    .bf-results-col {
+      min-height: unset;
+      position: static;
+    }
+  
+    .bf-bottom-divider {
+      width: 100%;
+      margin-top: 4rem;
+    }
+  }
+  
+  
+  /* Smaller screens stack the AI percentage above its explanation */
+  @media (max-width: 520px) {
+    .bf-radios,
+    .bf-metrics-row {
+      flex-direction: column;
+    }
+  
+    .bf-input-row,
+    .bf-ai-summary {
+      grid-template-columns: 1fr;
+    }
+  
+    .bf-ai-percentage {
+      width: 138px;
+      justify-self: center;
+    }
+  
+    .bf-ai-percentage span {
+      margin-top: 25px;
+    }
+  
+    .bf-optional-tag {
+      display: none;
+    }
+  }
+  
+  
+  /* ============================================================
+     REDUCED MOTION
+     Disables movement for users who prefer less animation.
+     ============================================================ */
+  
+  @media (prefers-reduced-motion: reduce) {
+    #bodyfat .section-label,
+    #bodyfat .section-title,
+    .bf-subtitle,
+    .bf-disclaimer,
+    .bf-layout {
+      opacity: 1;
+      transform: none;
+      animation: none !important;
+    }
+  
+    .bf-spinner,
+    .bf-pulse-ring {
+      animation: none;
+    }
+  
+    .bf-card,
+    .bf-radio-btn,
+    .bf-dropzone,
+    .bf-analyze-btn,
+    .bf-reset-btn {
+      transition: none;
+    }
+  
+    .bf-analyze-btn:hover,
+    .bf-reset-btn:hover {
+      transform: none;
+    }
+  }

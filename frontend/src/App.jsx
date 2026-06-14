@@ -6,6 +6,7 @@ import About from "./components/About";
 import Journey from "./components/Journey";
 import Clients from "./components/Clients";
 import Chatbot from "./components/Chatbot";
+import BodyFatAnalyzer from "./components/BodyFatAnalyzer";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
@@ -18,6 +19,7 @@ function App() {
       <Journey />
       <Clients />
       <Chatbot />
+      <BodyFatAnalyzer />
       <Contact />
       <Footer />
     </>
