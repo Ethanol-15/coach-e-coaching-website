@@ -326,7 +326,7 @@ export default function BodyFatAnalyzer() {
             AI-based estimate only — not a medical measurement.
             Always apply{" "}
             <strong>±3–5% margin of error</strong> to any result.
-            For clinical accuracy, use DEXA or hydrostatic
+            For clinical accuracy, use MRI, DEXA or hydrostatic
             weighing.
           </span>
         </div>
