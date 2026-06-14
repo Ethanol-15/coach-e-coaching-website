@@ -749,10 +749,6 @@ export default function BodyFatAnalyzer() {
           <div className="bf-results-col">
             {!analyzed && !loading && (
               <div className="bf-results-placeholder">
-                <div className="bf-placeholder-icon">
-                  📊
-                </div>
-
                 <p>
                   Your results will appear here after analysis.
                 </p>
