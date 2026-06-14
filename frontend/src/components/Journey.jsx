@@ -17,7 +17,7 @@ function Journey() {
         <div className="section-label">My journey</div>
 
         <h2 className="section-title">
-          From skinny to <em>stronger</em>
+          My Body <em>Transformation</em>
         </h2>
 
         <p className="section-sub">

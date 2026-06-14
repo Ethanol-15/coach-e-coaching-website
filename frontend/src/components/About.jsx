@@ -1,6 +1,15 @@
-import "./About.css";
+import {
+  FaArrowTrendUp,
+  FaArrowsRotate,
+  FaChartPie,
+  FaDumbbell,
+  FaRobot,
+  FaScaleBalanced,
+} from "react-icons/fa6";
+
 import aboutImage from "../assets/IMG_0909.png";
 import useScrollReveal from "../hooks/useScrollReveal";
+import "./About.css";
 
 function About() {
   const { elementRef, isVisible } = useScrollReveal();
@@ -30,44 +39,62 @@ function About() {
           <div className="about-text">
             <p>
               I take fitness seriously, tracking everything from calories and
-              macros to strength PRs using custom-built tools and programs. I
+              macros to strength using custom-built tools and programs. I
               coach with the same data-first mindset.
             </p>
 
             <p>
-              I apply modern, science-based training principles to help clients
-              maximize hypertrophy and build muscle effectively. No broscience —
+              I apply science-based training principles to help clients
+              maximize hypertrophy and build muscle effectively. No broscience
               just proven methods, progressive overload, and smart programming.
             </p>
 
             <div className="skills-grid">
               <div className="skill-item">
-                <span className="skill-dot"></span>
+                <FaArrowsRotate
+                  className="skill-icon"
+                  aria-hidden="true"
+                />
                 Cutting &amp; Bulking Cycles
               </div>
 
               <div className="skill-item">
-                <span className="skill-dot"></span>
+                <FaChartPie
+                  className="skill-icon"
+                  aria-hidden="true"
+                />
                 Macro Tracking
               </div>
 
               <div className="skill-item">
-                <span className="skill-dot"></span>
+                <FaDumbbell
+                  className="skill-icon"
+                  aria-hidden="true"
+                />
                 Strength Programming
               </div>
 
               <div className="skill-item">
-                <span className="skill-dot"></span>
+                <FaRobot
+                  className="skill-icon"
+                  aria-hidden="true"
+                />
                 AI-Powered Coaching
               </div>
 
               <div className="skill-item">
-                <span className="skill-dot"></span>
+                <FaScaleBalanced
+                  className="skill-icon"
+                  aria-hidden="true"
+                />
                 Body Recomposition
               </div>
 
               <div className="skill-item">
-                <span className="skill-dot"></span>
+                <FaArrowTrendUp
+                  className="skill-icon"
+                  aria-hidden="true"
+                />
                 Progressive Overload
               </div>
             </div>

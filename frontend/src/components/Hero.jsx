@@ -11,7 +11,7 @@ function Hero() {
         <div className="hero-bg"></div>
   
         <div className="hero-content">
-          <div className="hero-tag">Fitness Coach & CS Student</div>
+          <div className="hero-tag">Ethan Lyle Cruz | Online Fitness Coach</div>
   
           <h1 className="hero-electric-title">
           <span className="electric-line">Train Smarter.</span>
@@ -24,8 +24,8 @@ function Hero() {
   
           <p>
             Evidence-based coaching powered by data, discipline, and AI. I help
-            clients cut, bulk, and build strength with real plans that actually
-            work.
+            clients cut, bulk, maingain, and build strength with real plans that actually
+            work and stick to it.
           </p>
   
           <div className="hero-ctas">
