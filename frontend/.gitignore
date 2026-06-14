@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# run backend
+cd /Users/ethanlylecruz/Documents/GitHub/coach-e-coaching-website/backend
+source venv/bin/activate
+uvicorn app:app --reload
+# front end
+cd /Users/ethanlylecruz/Documents/GitHub/coach-e-coaching-website/frontend
+npm run dev
