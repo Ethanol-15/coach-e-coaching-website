@@ -14,7 +14,7 @@ const clientsData = [
     goal: "Goal: Fat loss and muscle retention",
     quote:
       "The structured plan made all the difference. I never felt lost in the gym again.",
-    result: "Lost 8 kg in 12 weeks",
+    result: "Successful body recomposition",
     icon: "ti ti-trending-down",
     beforeImage: client1Before,
     afterImage: client1After,
@@ -22,10 +22,10 @@ const clientsData = [
   {
     id: 2,
     label: "Client 02",
-    goal: "Goal: Strength and muscle growth",
+    goal: "Goal: Fat loss & Body Recomposition",
     quote:
       "I finally broke through my training plateau. The programming was simple, clear, and effective.",
-    result: "Improved overall strength",
+    result: " Lost 8 kg in 12 week",
     icon: "ti ti-barbell",
     beforeImage: client2Before,
     afterImage: client2After,
@@ -33,10 +33,10 @@ const clientsData = [
   {
     id: 3,
     label: "Client 03",
-    goal: "Goal: Body recomposition",
+    goal: "Goal: Strength and muscle growth",
     quote:
       "I became leaner while building more muscle and improving my training performance.",
-    result: "Successful body recomposition",
+    result: "Improved overall strength",
     icon: "ti ti-flame",
     beforeImage: client3Before,
     afterImage: client3After,

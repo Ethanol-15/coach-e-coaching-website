@@ -1,26 +1,39 @@
 import "./ClientCard.css";
 
-function ClientCard({ client }) {
+function ClientCard({ client, isSelected, onClick }) {
   const hasTransformationImages =
     client.beforeImage && client.afterImage;
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onClick();
+    }
+  };
+
   return (
-    <article className="client-card">
+    <article
+      className={`client-card ${
+        isSelected ? "client-card--selected" : ""
+      }`}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-pressed={isSelected}
+      aria-label={`${client.label} client result. Click to ${
+        isSelected ? "resume" : "pause"
+      } the client results`}
+    >
       <div className="client-header">
         <div className="client-anonymous-icon">
-          <span>
-            {client.id.toString().padStart(2, "0")}
-          </span>
+          <span>{client.id.toString().padStart(2, "0")}</span>
         </div>
 
         <div>
-          <div className="client-name">
-            {client.label}
-          </div>
+          <div className="client-name">{client.label}</div>
 
-          <div className="client-goal">
-            {client.goal}
-          </div>
+          <div className="client-goal">{client.goal}</div>
         </div>
       </div>
 
@@ -32,9 +45,7 @@ function ClientCard({ client }) {
               alt={`${client.label} before transformation`}
             />
 
-            <span className="client-photo-label">
-              Before
-            </span>
+            <span className="client-photo-label">Before</span>
           </div>
 
           <div className="client-photo">
@@ -43,9 +54,7 @@ function ClientCard({ client }) {
               alt={`${client.label} after transformation`}
             />
 
-            <span className="client-photo-label">
-              After
-            </span>
+            <span className="client-photo-label">After</span>
           </div>
         </div>
       ) : (
@@ -62,16 +71,10 @@ function ClientCard({ client }) {
         </div>
       )}
 
-      <div className="client-quote">
-        “{client.quote}”
-      </div>
+      <div className="client-quote">“{client.quote}”</div>
 
       <div className="client-result">
-        <i
-          className={client.icon}
-          aria-hidden="true"
-        ></i>
-
+        <i className={client.icon} aria-hidden="true"></i>
         {client.result}
       </div>
     </article>

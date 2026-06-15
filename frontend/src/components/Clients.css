@@ -1,6 +1,7 @@
 /* ============================================================
    CLIENTS CONVEYOR
-   Continuously moves client cards without stopping on hover.
+   Continuously moves client cards from right to left.
+   Also allows manual horizontal scrolling and dragging.
    ============================================================ */
 
    .clients-marquee {
@@ -8,9 +9,21 @@
     width: calc(100% - 4rem);
     max-width: 1200px;
     margin: 3rem auto 0;
-    overflow: hidden;
   
-    /* Soft fade on both sides */
+    /* Allows manual horizontal scrolling */
+    overflow-x: auto;
+    overflow-y: hidden;
+  
+    /* Improves mouse, trackpad, and mobile scrolling */
+    cursor: grab;
+    user-select: none;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+  
+    /* Hides the scrollbar in Firefox */
+    scrollbar-width: none;
+  
+    /* Keeps the original soft fade size on both sides */
     -webkit-mask-image: linear-gradient(
       to right,
       transparent,
@@ -28,14 +41,26 @@
     );
   }
   
+  /* Hides the scrollbar in Chrome, Safari, and Edge */
+  .clients-marquee::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Changes the cursor while manually dragging */
+  .clients-marquee--dragging {
+    cursor: grabbing;
+  }
+  
   /* Holds both identical groups of client cards */
   .clients-track {
     display: flex;
     width: max-content;
     gap: 1.5rem;
   
-    animation: moveClientsRight 32s linear infinite;
-    will-change: transform;
+    /*
+      JavaScript now handles the continuous movement.
+      Do not add a transform animation here.
+    */
   }
   
   /* One complete group of client cards */
@@ -45,30 +70,17 @@
     gap: 1.5rem;
   }
   
-  /*
-    Do not add animation-play-state: paused here.
-    The conveyor will continue moving even when hovered.
-  */
-  
-  /* Infinite right-moving animation */
-  @keyframes moveClientsRight {
-    from {
-      transform: translateX(calc(-50% - 0.75rem));
-    }
-  
-    to {
-      transform: translateX(0);
-    }
+  /* Prevents images from being dragged separately */
+  .clients-marquee img {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
   }
   
   /* Tablet */
   @media (max-width: 1024px) {
     .clients-marquee {
       width: calc(100% - 2rem);
-    }
-  
-    .clients-track {
-      animation-duration: 28s;
     }
   }
   
@@ -83,20 +95,11 @@
     .clients-group {
       gap: 1rem;
     }
-  
-    .clients-track {
-      animation-duration: 24s;
-    }
   }
   
-  /* Stop movement for users who prefer reduced motion */
+  /* Stop automatic movement for users who prefer reduced motion */
   @media (prefers-reduced-motion: reduce) {
-    .clients-track {
-      animation: none;
-    }
-  
     .clients-marquee {
-      overflow-x: auto;
       mask-image: none;
       -webkit-mask-image: none;
     }
